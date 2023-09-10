@@ -17,7 +17,14 @@ func main() {
 
     h1 := func (w http.ResponseWriter, r *http.Request) {
         tmpl := template.Must(template.ParseFiles("index.html"))
-        tmpl.Execute(w, nil)
+        films := map[string][]Film{
+            "Films": {
+                {Title: "The GodFather", Director: "Francis Ford Coppola"},
+                {Title: "Blade Runner", Director: "Ridley Scott"},
+                {Title: "The Thing", Director: "John Carpenter"},
+            },
+        }
+        tmpl.Execute(w, films)
     }
 
     http.HandleFunc("/", h1)
