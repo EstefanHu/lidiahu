@@ -2,17 +2,22 @@ package main
 
 import (
     "fmt"
-    "io"
+    "html/template"
     "log"
     "net/http"
 )
 
-func main() {
+type Film struct {
+    Title string
+    Director string
+}
+
+func main() { 
     fmt.Println("hello world")
 
     h1 := func (w http.ResponseWriter, r *http.Request) {
-        io.WriteString(w, "hello World\n")
-        io.WriteString(w, r.Method)
+        tmpl := template.Must(template.ParseFiles("index.html"))
+        tmpl.Execute(w, nil)
     }
 
     http.HandleFunc("/", h1)
